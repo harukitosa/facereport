@@ -64,9 +64,14 @@ void adaboost(cv::Mat* images, int* labels, int sample_num)
 
     // 1. 重みの初期化
     double sum_w = 0.0;
+    // Normalize th weights 
+    // weightを全てたしてその合計で割って正規化していく
+    for (int i = 0;i < sample_num;i++) {
+      sum_w += w[i];
+    }
     for(int i = 0; i <  sample_num; i++){
       // 以下の重み更新を正しく修正すること
-      w[i] = 1/sample_num;
+      w[i] /= sum_w;
     }
 
     double f[sample_num];
@@ -76,18 +81,39 @@ void adaboost(cv::Mat* images, int* labels, int sample_num)
     for(int j = 0; j < n_f; j++){
       //std::cout << "i:" << i << std::endl;
       for(int i = 0;i < sample_num; i++){	
-	f[i] = haarlike(int_img[i], 0, 0, f_hx[j], f_hy[j], f_h[j], f_w[j], f_flag[j]);
+        f[i] = haarlike(int_img[i], 0, 0, f_hx[j], f_hy[j], f_h[j], f_w[j], f_flag[j]);
       }
 
+      for (int p = -1;p < 3;p+=2) {
+        double sum_error = 0.0;
+        for (int i = 0;i < sumple_num;i++) {
+          if(p*f[i] < p * thrd) {
+            h[i] = 1;
+          } else {
+            h[i] = 0;
+          }
+          sum_error += (w[i]*abs((double)h[i] - (double)labels[i]));
+        }
+
+        if (min_error[t] > sum_error) {
+          min_error[t] = sum_error;
+          T_idx[t] _ j;
+          min_thrd[t] = thrd;
+          min_p[t] = p;
+          for(int k = 0;k < sample;k++) {
+            min_h[k] = h[k];
+          } 
+        }
+      }
       // theta に関する最適化。
       // 今回は単純に thrd (theta のこと) をある範囲内で動かして探すことにする
-      for(int thrd = MIN_T; thrd < MAX_T; thrd++){
+      // for(int thrd = MIN_T; thrd < MAX_T; thrd++){
 
 	
 	  // このループの中で 「3. エラーを最小にする弱識別器の選択」を行う
 	    
 
-      }
+      // }
     }
 
     // 4.update the weights
