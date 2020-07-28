@@ -134,6 +134,11 @@ void adaboost(cv::Mat* images, int* labels, int sample_num)
             std::cout << "w[" << k << "]" << w[k] << std::endl;
           }
         }
+        f_h[T_idx[t]] = rand() % (SUBSIZE - F_SIZE_MIN) + F_SIZE_MIN;
+        f_w[T_idx[t]] = rand() % (SUBSIZE - F_SIZE_MIN) + F_SIZE_MIN;
+        f_hx[T_idx[t]] = rand() % (SUBSIZE - f_w[T_idx[t]]);
+        f_hy[T_idx[t]] = rand() % (SUBSIZE - f_h[T_idx[t]]);
+        f_flag[T_idx[t]] = rand() % 4;
       }
     }
     std::cout << "classifier " << t << " is finished." << std::endl;
