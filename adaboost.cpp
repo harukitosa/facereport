@@ -1,6 +1,7 @@
 #include <fstream>
 #include <iomanip>
 #include <iostream>
+#include <math.h>
 #include <opencv2/imgproc/imgproc.hpp>
 
 #include "haarlike.h"
@@ -129,7 +130,7 @@ void adaboost(cv::Mat* images, int* labels, int sample_num)
         if (min_error[t] != 0) {
           w[k] = w[k]*min_error[t]/(1.0-min_error[t]);
           if (k == 0){
-            std::cout << w[k]*min_error[t]/(1.0-min_error[t]) << std::endl;
+            std::cout << w[k]*std::pow(min_error[t]/(1.0-min_error[t]), 1.0-min_error[t]) << std::endl;
             std::cout << "min_error[" << k << "]" << min_error[k] << std::endl;
             std::cout << "w[" << k << "]" << w[k] << std::endl;
           }

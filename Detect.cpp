@@ -40,7 +40,7 @@ void detect(double thrd){
   int min_p[T];
   std::string str;
 
-  std::ifstream ifs("train_result.txt");
+  std::ifstream ifs("out.txt");
 
   //学習済み重み係数の読み込み
   while (getline(ifs, str)){
