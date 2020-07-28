@@ -128,7 +128,9 @@ void adaboost(cv::Mat* images, int* labels, int sample_num)
       for (int k = 0;k < sample_num;k++) {
         if (min_error[k] != 0) {
           w[k] = w[k]*min_error[k]/(1-min_error[k]);
-          std::cout << "w[" << k << "]" << w[k] << std::endl;
+          if (k = 0){
+            std::cout << "w[" << k << "]" << w[k] << std::endl;
+          }
         }
       }
     }
