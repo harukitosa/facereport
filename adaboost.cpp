@@ -109,11 +109,7 @@ void adaboost(cv::Mat* images, int* labels, int sample_num)
       // theta に関する最適化。
       // 今回は単純に thrd (theta のこと) をある範囲内で動かして探すことにする
       // for(int thrd = MIN_T; thrd < MAX_T; thrd++){
-
-	
-	  // このループの中で 「3. エラーを最小にする弱識別器の選択」を行う
-	    
-
+      // このループの中で 「3. エラーを最小にする弱識別器の選択」を行う
       // }
     }
 
@@ -129,7 +125,11 @@ void adaboost(cv::Mat* images, int* labels, int sample_num)
     }
     else{
       // 論文における 「4.重みの更新」を行う
-      
+      for (int k = 0;k < sample_num;k++) {
+        if (min_error[k] != 0) {
+          w[k] = w[k]*min_error[k]/(1-min_error[k]);
+        }
+      }
     }
     std::cout << "classifier " << t << " is finished." << std::endl;
   }// main loop の終わり
