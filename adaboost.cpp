@@ -84,10 +84,11 @@ void adaboost(cv::Mat* images, int* labels, int sample_num)
         f[i] = haarlike(int_img[i], 0, 0, f_hx[j], f_hy[j], f_h[j], f_w[j], f_flag[j]);
       }
 
+      double thrd = 0.5;
       for (int p = -1;p < 3;p+=2) {
         double sum_error = 0.0;
-        for (int i = 0;i < sumple_num;i++) {
-          if(p*f[i] < p * thrd) {
+        for (int i = 0;i < sample_num;i++) {
+          if(p * f[i] < p * thrd) {
             h[i] = 1;
           } else {
             h[i] = 0;
@@ -97,7 +98,7 @@ void adaboost(cv::Mat* images, int* labels, int sample_num)
 
         if (min_error[t] > sum_error) {
           min_error[t] = sum_error;
-          T_idx[t] _ j;
+          T_idx[t] = j;
           min_thrd[t] = thrd;
           min_p[t] = p;
           for(int k = 0;k < sample;k++) {
