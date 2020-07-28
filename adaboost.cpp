@@ -133,7 +133,7 @@ void adaboost(cv::Mat* images, int* labels, int sample_num)
             // 論文における 「4.重みの更新」を行う
             // for (int k = 0;k < sample_num;k++) {
             // if (min_thrd[t] != 0) {
-            if (label[t] == min_h[t]) {
+            if (labels[t] == min_h[t]) {
                 w[t] = w[t]*(min_error[t]/(1-min_error[t]));
             } 
             // w[t] = w[t] * std::pow(min_error[t] / (1.0 - min_error[t]), 1.0 - min_error[t]);
