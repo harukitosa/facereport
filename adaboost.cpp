@@ -101,7 +101,7 @@ void adaboost(cv::Mat* images, int* labels, int sample_num)
           T_idx[t] = j;
           min_thrd[t] = thrd;
           min_p[t] = p;
-          for(int k = 0;k < sample;k++) {
+          for(int k = 0;k < sample_num;k++) {
             min_h[k] = h[k];
           } 
         }
