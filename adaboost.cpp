@@ -134,7 +134,7 @@ void adaboost(cv::Mat* images, int* labels, int sample_num)
             // for (int k = 0;k < sample_num;k++) {
             // if (min_thrd[t] != 0) {
             for (int d = 0;d < T;d++) {
-                if (labels[d] == f[d]) {
+                if (labels[d] == min_h[d]) {
                     std::cout << "HElloworld" << std::endl;
                     w[d] = w[d]*(min_error[t]/(1-min_error[t]));
                 }
