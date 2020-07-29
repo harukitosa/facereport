@@ -103,6 +103,7 @@ void adaboost(cv::Mat* images, int* labels, int sample_num)
                     }
 
                     if (min_error[t] > sum_error) {
+                        std::cout << "update" << std::endl;
                         min_error[t] = sum_error;
                         T_idx[t] = j;
                         min_thrd[t] = thrd;
