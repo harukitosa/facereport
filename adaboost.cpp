@@ -103,7 +103,6 @@ void adaboost(cv::Mat* images, int* labels, int sample_num)
                     }
 
                     if (min_error[t] > sum_error) {
-                        std::cout << "update" << std::endl;
                         min_error[t] = sum_error;
                         T_idx[t] = j;
                         min_thrd[t] = thrd;
@@ -115,11 +114,6 @@ void adaboost(cv::Mat* images, int* labels, int sample_num)
                 }
             }
         }
-        // theta に関する最適化。
-        // 今回は単純に thrd (theta のこと) をある範囲内で動かして探すことにする
-        // このループの中で 「3. エラーを最小にする弱識別器の選択」を行う
-        //
-
         // 4.update the weights
         if (min_error[t] == 0) {
             //エラーが 0 になってしまった場合の例外処理
@@ -132,21 +126,13 @@ void adaboost(cv::Mat* images, int* labels, int sample_num)
         }
         else {
             // 論文における 「4.重みの更新」を行う
-            // for (int k = 0;k < sample_num;k++) {
-            // if (min_thrd[t] != 0) {
-            for (int d = 0;d < T;d++) {
+            for (int d = 0;d < sample_num;d++) {
                 if (labels[d] == min_h[d]) {
-                    std::cout << "HElloworld" << std::endl;
-                    w[d] = w[d]*(min_error[t]/(1-min_error[t]));
+                    w[d] = w[d]*((double)min_error[t]/(double)ß(1-min_error[t]));
                 }
             }
-            // w[t] = w[t] * std::pow(min_error[t] / (1.0 - min_error[t]), 1.0 - min_error[t]);
-            // std::cout << w[t] * std::pow(min_error[t] / (1.0 - min_error[t]), 1.0 - min_error[t]) << std::endl;
-            // std::cout << "min_error[" << t << "] " << min_error[t] << std::endl;
-            // std::cout << "w[" << t << "]" << w[t] << std::endl;
         }
         std::cout << "classifier " << t << " is finished." << std::endl;
-
     } // main loop の終わり
 
     //学習結果の出力
